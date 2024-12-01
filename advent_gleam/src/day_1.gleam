@@ -5,24 +5,17 @@ import gleam/result
 import gleam/string
 import simplifile as sf
 
-pub fn do_day_1() {
+pub fn solve_day_1() {
   io.println("--- Day 1: Historian Hysteria ---")
-  day_1_part_1()
-  day_1_part_2()
+
+  let #(left_list, right_list) = read_lists("./src/data/day_1_part_1.txt")
+
+  day_1_part_1(left_list, right_list)
+  day_1_part_2(left_list, right_list)
 }
 
-pub fn day_1_part_2() {
+pub fn day_1_part_2(left_list, right_list) {
   io.println("**Similarity Score**")
-  let #(left_list, right_list) = read_lists("./src/data/day_1_part_1.txt")
-  let assert Ok(left_list) =
-    left_list
-    |> list.map(fn(x) { int.parse(x) })
-    |> result.all()
-
-  let assert Ok(right_list) =
-    right_list
-    |> list.map(fn(x) { int.parse(x) })
-    |> result.all()
 
   let ans =
     calc_similarity(left_list, right_list)
@@ -42,21 +35,17 @@ pub fn calc_similarity(left_list: List(Int), right_list: List(Int)) {
   |> list.fold(0, int.add)
 }
 
-pub fn day_1_part_1() {
+pub fn day_1_part_1(left_list, right_list) {
   io.println("**Location ID Distance**")
-  let #(left_list, right_list) = read_lists("./src/data/day_1_part_1.txt")
+
   let assert Ok(left_list_sorted) =
     left_list
-    |> list.map(fn(x) { int.parse(x) })
-    |> result.all()
-    |> result.try(fn(x) { Ok(list.sort(x, int.compare)) })
+    |> fn(x) { Ok(list.sort(x, int.compare)) }
   // |> io.debug()
 
   let assert Ok(right_list_sorted) =
     right_list
-    |> list.map(fn(x) { int.parse(x) })
-    |> result.all()
-    |> result.try(fn(x) { Ok(list.sort(x, int.compare)) })
+    |> fn(x) { Ok(list.sort(x, int.compare)) }
   // |> io.debug()
 
   let ans =
@@ -78,8 +67,21 @@ pub fn read_lists(file: String) {
     |> list.map(fn(x) { string.split(x, "   ") })
     |> list.transpose()
 
+  // I should clean up
   let assert Ok(left_list) = lists |> list.first()
+
+  let assert Ok(left_list) =
+    left_list
+    |> list.map(fn(x) { int.parse(x) })
+    |> result.all()
+
   let assert Ok(right_list) = lists |> list.last()
+
+  let assert Ok(right_list) =
+    right_list
+    |> list.map(fn(x) { int.parse(x) })
+    |> result.all()
+
   #(left_list, right_list)
 }
 
