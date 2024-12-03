@@ -1,7 +1,6 @@
 import gleam/int
 import gleam/io
 import gleam/list
-import gleam/order
 import gleam/pair
 import gleam/result
 import gleam/string
@@ -13,6 +12,7 @@ pub fn solve() {
   let assert Ok(data) = read_file("./src/data/day_2.txt")
 
   part_1(data)
+  part_2(data)
 }
 
 fn part_1(data: List(List(Int))) {
@@ -22,7 +22,7 @@ fn part_1(data: List(List(Int))) {
     |> list.count(fn(x) { x })
     |> int.to_string()
 
-  io.println("Safe Count: " <> ans)
+  io.println("Safe Count Part 1 ⭐️: " <> ans)
 }
 
 fn safe(arr: List(Int)) {
@@ -35,8 +35,22 @@ fn safe(arr: List(Int)) {
   }
 }
 
+fn part_2(data: List(List(Int))) {
+  let ans =
+    data
+    |> list.count(fn(r) {
+      r
+      |> list.index_map(fn(_, idx) {
+        list.append(list.take(r, idx), list.drop(r, idx + 1))
+      })
+      |> list.any(safe)
+    })
+    |> int.to_string()
+  io.println("Safe Count Part 2 ⭐️: " <> ans)
+}
+
 fn read_file(path: String) {
-  io.println("READING FILE")
+  // io.println("READING FILE")
   let assert Ok(file) = sf.read(from: path)
 
   file

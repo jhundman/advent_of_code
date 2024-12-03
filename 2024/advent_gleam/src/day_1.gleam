@@ -16,8 +16,6 @@ pub fn solve_day_1() {
 }
 
 pub fn day_1_part_1(left_list, right_list) {
-  io.println("**Location ID Distance**")
-
   // Sort Lists
   let assert Ok(left_list_sorted) =
     left_list
@@ -33,7 +31,7 @@ pub fn day_1_part_1(left_list, right_list) {
     |> list.fold(0, int.add)
     |> int.to_string()
 
-  io.println("The distance in part 1 (correct btw 🌟): " <> ans)
+  io.println("The distance in part 1 ⭐️: " <> ans)
 }
 
 pub fn subtract_lists(
@@ -52,17 +50,14 @@ pub fn subtract_lists(
 }
 
 pub fn day_1_part_2(left_list, right_list) {
-  io.println("**Similarity Score**")
-
   let ans =
     calc_similarity(left_list, right_list)
     |> int.to_string()
 
-  io.println("The simiparity in part 2 (correct btw 🌟): " <> ans)
+  io.println("The simiparity in part 2 ⭐️: " <> ans)
 }
 
 pub fn calc_similarity(left_list: List(Int), right_list: List(Int)) {
-  io.println("CALC SIMILARITY")
   let counts =
     left_list
     |> list.map(fn(x) { list.count(right_list, fn(y) { x == y }) })
@@ -72,7 +67,6 @@ pub fn calc_similarity(left_list: List(Int), right_list: List(Int)) {
 }
 
 pub fn read_lists(file: String) {
-  io.println("READING FILE")
   let assert Ok(file) = sf.read(from: file)
 
   let lists =
