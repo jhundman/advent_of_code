@@ -79,8 +79,7 @@ fn helper(vals: List(String), is_do: Int, ans: List(String)) {
       }
       case is_do, first {
         // We don't care about do() then do() or don't()
-        1, "do()" -> helper(rest, is_do_new, ans)
-        1, "don't()" -> helper(rest, is_do_new, ans)
+        1, "do()" | 1, "don't()" -> helper(rest, is_do_new, ans)
         1, _ -> helper(rest, is_do_new, [first, ..ans])
         _, _ -> helper(rest, is_do_new, ans)
       }
