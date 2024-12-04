@@ -1,8 +1,6 @@
 import gleam/int
 import gleam/io
 import gleam/list
-import gleam/pair
-import gleam/regex
 import gleam/regexp
 import gleam/result
 import gleam/string
